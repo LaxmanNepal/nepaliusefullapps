@@ -37,7 +37,7 @@ creator = creator.strip()
 creator_match = re.fullmatch(r"(?:https?://(?:www\.)?github\.com/)?@?([A-Za-z0-9-]+)/?", creator, re.I)
 if creator_match:
     creator = creator_match.group(1)
-title = section("Project name", "Project name")
+title = section("Project name", "Project")
 description = section("Project description", "Description")
 demo = section("Live demo URL (optional)", "Live demo")
 category = section("Category")
