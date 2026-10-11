@@ -1,0 +1,39 @@
+name: Refresh creator and project directory
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 3 * * *"
+  push:
+    paths:
+      - "scripts/build_directory.py"
+      - ".github/workflows/update-directory.yml"
+permissions:
+  contents: write
+concurrency:
+  group: refresh-directory
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build directory from public GitHub data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/build_directory.py
+      - name: Commit updated directory data
+        run: |
+          if git diff --quiet -- data/directory.json; then
+            echo "Directory data unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/directory.json
+          git commit -m "chore: refresh creator and project directory"
+          git push
