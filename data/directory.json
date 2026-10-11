@@ -1,0 +1,340 @@
+{
+  "generatedAt": "2026-10-11T22:35:08.523Z",
+  "discoveryNote": "Starter index. Daily GitHub Actions discovery expands this list using public GitHub search; it is a best-effort directory, not a complete list of Nepali developers.",
+  "creatorCount": 8,
+  "projectCount": 8,
+  "creators": [
+    {
+      "login": "prabhashj07",
+      "name": "Prabhash Joshi",
+      "bio": "Developer building useful Nepali tools and libraries.",
+      "location": "",
+      "avatar": "https://github.com/prabhashj07.png",
+      "profile": "https://github.com/prabhashj07",
+      "repos": [
+        {
+          "name": "nepalikit",
+          "title": "nepalikit",
+          "description": "A toolkit for working with Nepali language and data.",
+          "url": "https://github.com/prabhashj07/nepalikit",
+          "demo": "",
+          "homepage": "",
+          "type": "Open Source",
+          "stars": 0,
+          "forks": 0,
+          "language": "",
+          "updated": ""
+        }
+      ]
+    },
+    {
+      "login": "ajaysinghnp",
+      "name": "Ajay Singh",
+      "bio": "Nepali developer and open-source contributor.",
+      "location": "",
+      "avatar": "https://github.com/ajaysinghnp.png",
+      "profile": "https://github.com/ajaysinghnp",
+      "repos": [
+        {
+          "name": "Nepali-Calendar-Web-Component",
+          "title": "Nepali Calendar Web Component",
+          "description": "A reusable web component for the Nepali calendar.",
+          "url": "https://github.com/ajaysinghnp/Nepali-Calendar-Web-Component",
+          "demo": "",
+          "homepage": "",
+          "type": "Open Source",
+          "stars": 0,
+          "forks": 0,
+          "language": "",
+          "updated": ""
+        }
+      ]
+    },
+    {
+      "login": "bimalstha23",
+      "name": "Bimal Stha",
+      "bio": "Developer focused on practical Nepal-focused APIs.",
+      "location": "",
+      "avatar": "https://github.com/bimalstha23.png",
+      "profile": "https://github.com/bimalstha23",
+      "repos": [
+        {
+          "name": "Nepal-Address-API",
+          "title": "Nepal Address API",
+          "description": "API project for structured Nepal address data.",
+          "url": "https://github.com/bimalstha23/Nepal-Address-API",
+          "demo": "",
+          "homepage": "",
+          "type": "API",
+          "stars": 0,
+          "forks": 0,
+          "language": "",
+          "updated": ""
+        }
+      ]
+    },
+    {
+      "login": "prabin194",
+      "name": "Prabin",
+      "bio": "Open-source developer building Nepali input tools.",
+      "location": "",
+      "avatar": "https://github.com/prabin194.png",
+      "profile": "https://github.com/prabin194",
+      "repos": [
+        {
+          "name": "nepali-keyboard",
+          "title": "Nepali Keyboard",
+          "description": "A Nepali keyboard project for the web.",
+          "url": "https://github.com/prabin194/nepali-keyboard",
+          "demo": "",
+          "homepage": "",
+          "type": "Open Source",
+          "stars": 0,
+          "forks": 0,
+          "language": "",
+          "updated": ""
+        }
+      ]
+    },
+    {
+      "login": "sahilkhatiwada",
+      "name": "Sahil Khatiwada",
+      "bio": "Developer working on Nepali date and utility software.",
+      "location": "",
+      "avatar": "https://github.com/sahilkhatiwada.png",
+      "profile": "https://github.com/sahilkhatiwada",
+      "repos": [
+        {
+          "name": "nepali-date-converter",
+          "title": "Nepali Date Converter",
+          "description": "Convert between Nepali and Gregorian dates.",
+          "url": "https://github.com/sahilkhatiwada/nepali-date-converter",
+          "demo": "",
+          "homepage": "",
+          "type": "Library",
+          "stars": 0,
+          "forks": 0,
+          "language": "",
+          "updated": ""
+        }
+      ]
+    },
+    {
+      "login": "paraslamsong",
+      "name": "Paras Lamsong",
+      "bio": "Developer creating validation utilities for Nepal.",
+      "location": "",
+      "avatar": "https://github.com/paraslamsong.png",
+      "profile": "https://github.com/paraslamsong",
+      "repos": [
+        {
+          "name": "nepali-phone-number-validator",
+          "title": "Nepali Phone Number Validator",
+          "description": "Validate Nepali phone numbers programmatically.",
+          "url": "https://github.com/paraslamsong/nepali-phone-number-validator",
+          "demo": "",
+          "homepage": "",
+          "type": "Library",
+          "stars": 0,
+          "forks": 0,
+          "language": "",
+          "updated": ""
+        }
+      ]
+    },
+    {
+      "login": "iam8uman",
+      "name": "iam8uman",
+      "bio": "Builder of Nepal-focused market and data projects.",
+      "location": "",
+      "avatar": "https://github.com/iam8uman.png",
+      "profile": "https://github.com/iam8uman",
+      "repos": [
+        {
+          "name": "market-pulse-nepal",
+          "title": "Market Pulse Nepal",
+          "description": "A Nepal market-data project and dashboard.",
+          "url": "https://github.com/iam8uman/market-pulse-nepal",
+          "demo": "",
+          "homepage": "",
+          "type": "Open Source",
+          "stars": 0,
+          "forks": 0,
+          "language": "",
+          "updated": ""
+        }
+      ]
+    },
+    {
+      "login": "yankeexe",
+      "name": "Yankeexe",
+      "bio": "Developer and maintainer of Nepali developer resources.",
+      "location": "",
+      "avatar": "https://github.com/yankeexe.png",
+      "profile": "https://github.com/yankeexe",
+      "repos": [
+        {
+          "name": "nepali-devblogs",
+          "title": "Nepali DevBlogs",
+          "description": "A collection of Nepali developer blogs and resources.",
+          "url": "https://github.com/yankeexe/nepali-devblogs",
+          "demo": "",
+          "homepage": "",
+          "type": "Open Source",
+          "stars": 0,
+          "forks": 0,
+          "language": "",
+          "updated": ""
+        }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "nepalikit",
+      "title": "nepalikit",
+      "description": "A toolkit for working with Nepali language and data.",
+      "url": "https://github.com/prabhashj07/nepalikit",
+      "demo": "",
+      "homepage": "",
+      "type": "Open Source",
+      "stars": 0,
+      "forks": 0,
+      "language": "",
+      "updated": "",
+      "creatorLogin": "prabhashj07",
+      "creatorName": "Prabhash Joshi",
+      "creatorAvatar": "https://github.com/prabhashj07.png",
+      "creatorProfile": "https://github.com/prabhashj07"
+    },
+    {
+      "name": "Nepali-Calendar-Web-Component",
+      "title": "Nepali Calendar Web Component",
+      "description": "A reusable web component for the Nepali calendar.",
+      "url": "https://github.com/ajaysinghnp/Nepali-Calendar-Web-Component",
+      "demo": "",
+      "homepage": "",
+      "type": "Open Source",
+      "stars": 0,
+      "forks": 0,
+      "language": "",
+      "updated": "",
+      "creatorLogin": "ajaysinghnp",
+      "creatorName": "Ajay Singh",
+      "creatorAvatar": "https://github.com/ajaysinghnp.png",
+      "creatorProfile": "https://github.com/ajaysinghnp"
+    },
+    {
+      "name": "Nepal-Address-API",
+      "title": "Nepal Address API",
+      "description": "API project for structured Nepal address data.",
+      "url": "https://github.com/bimalstha23/Nepal-Address-API",
+      "demo": "",
+      "homepage": "",
+      "type": "API",
+      "stars": 0,
+      "forks": 0,
+      "language": "",
+      "updated": "",
+      "creatorLogin": "bimalstha23",
+      "creatorName": "Bimal Stha",
+      "creatorAvatar": "https://github.com/bimalstha23.png",
+      "creatorProfile": "https://github.com/bimalstha23"
+    },
+    {
+      "name": "nepali-keyboard",
+      "title": "Nepali Keyboard",
+      "description": "A Nepali keyboard project for the web.",
+      "url": "https://github.com/prabin194/nepali-keyboard",
+      "demo": "",
+      "homepage": "",
+      "type": "Open Source",
+      "stars": 0,
+      "forks": 0,
+      "language": "",
+      "updated": "",
+      "creatorLogin": "prabin194",
+      "creatorName": "Prabin",
+      "creatorAvatar": "https://github.com/prabin194.png",
+      "creatorProfile": "https://github.com/prabin194"
+    },
+    {
+      "name": "nepali-date-converter",
+      "title": "Nepali Date Converter",
+      "description": "Convert between Nepali and Gregorian dates.",
+      "url": "https://github.com/sahilkhatiwada/nepali-date-converter",
+      "demo": "",
+      "homepage": "",
+      "type": "Library",
+      "stars": 0,
+      "forks": 0,
+      "language": "",
+      "updated": "",
+      "creatorLogin": "sahilkhatiwada",
+      "creatorName": "Sahil Khatiwada",
+      "creatorAvatar": "https://github.com/sahilkhatiwada.png",
+      "creatorProfile": "https://github.com/sahilkhatiwada"
+    },
+    {
+      "name": "nepali-phone-number-validator",
+      "title": "Nepali Phone Number Validator",
+      "description": "Validate Nepali phone numbers programmatically.",
+      "url": "https://github.com/paraslamsong/nepali-phone-number-validator",
+      "demo": "",
+      "homepage": "",
+      "type": "Library",
+      "stars": 0,
+      "forks": 0,
+      "language": "",
+      "updated": "",
+      "creatorLogin": "paraslamsong",
+      "creatorName": "Paras Lamsong",
+      "creatorAvatar": "https://github.com/paraslamsong.png",
+      "creatorProfile": "https://github.com/paraslamsong"
+    },
+    {
+      "name": "market-pulse-nepal",
+      "title": "Market Pulse Nepal",
+      "description": "A Nepal market-data project and dashboard.",
+      "url": "https://github.com/iam8uman/market-pulse-nepal",
+      "demo": "",
+      "homepage": "",
+      "type": "Open Source",
+      "stars": 0,
+      "forks": 0,
+      "language": "",
+      "updated": "",
+      "creatorLogin": "iam8uman",
+      "creatorName": "iam8uman",
+      "creatorAvatar": "https://github.com/iam8uman.png",
+      "creatorProfile": "https://github.com/iam8uman"
+    },
+    {
+      "name": "nepali-devblogs",
+      "title": "Nepali DevBlogs",
+      "description": "A collection of Nepali developer blogs and resources.",
+      "url": "https://github.com/yankeexe/nepali-devblogs",
+      "demo": "",
+      "homepage": "",
+      "type": "Open Source",
+      "stars": 0,
+      "forks": 0,
+      "language": "",
+      "updated": "",
+      "creatorLogin": "yankeexe",
+      "creatorName": "Yankeexe",
+      "creatorAvatar": "https://github.com/yankeexe.png",
+      "creatorProfile": "https://github.com/yankeexe"
+    }
+  ],
+  "trending": [
+    "https://github.com/prabhashj07/nepalikit",
+    "https://github.com/ajaysinghnp/Nepali-Calendar-Web-Component",
+    "https://github.com/bimalstha23/Nepal-Address-API",
+    "https://github.com/prabin194/nepali-keyboard",
+    "https://github.com/sahilkhatiwada/nepali-date-converter",
+    "https://github.com/paraslamsong/nepali-phone-number-validator",
+    "https://github.com/iam8uman/market-pulse-nepal",
+    "https://github.com/yankeexe/nepali-devblogs"
+  ]
+}
