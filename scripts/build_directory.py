@@ -48,6 +48,38 @@ for i,login in enumerate(sorted(logins, key=str.lower)):
                      "profile":u.get("html_url") or "https://github.com/"+login,
                      "repos":mapped[:30]})
     if i%20==0: print("Indexed",i+1,"/",len(logins))
+# Merge maintainer-approved community submissions after discovery so daily refreshes preserve them.
+approved_path=os.path.join("data","approved-submissions.json")
+try:
+    approved=json.load(open(approved_path,encoding="utf-8")).get("submissions",[])
+except (OSError,ValueError):
+    approved=[]
+for entry in approved:
+    login=entry.get("creatorLogin") or ""
+    if not login or not entry.get("url"):
+        continue
+    creator=next((c for c in creators if c["login"].lower()==login.lower()),None)
+    if creator is None:
+        creator={"login":login,"name":entry.get("creatorName") or login,"bio":"Community-approved project creator.","location":"","avatar":entry.get("creatorAvatar") or "","profile":entry.get("creatorProfile") or "https://github.com/"+login,"repos":[]}
+        creators.append(creator)
+    repo={k:entry.get(k) for k in ["name","title","description","url","demo","homepage","type","stars","forks","language","updated","created","topics"]}
+    repo["name"]=repo.get("name") or entry["url"].rstrip("/").split("/")[-1]
+    repo["title"]=repo.get("title") or repo["name"]
+    repo["description"]=repo.get("description") or "Community-approved public project."
+    repo["url"]=entry["url"]
+    repo["demo"]=repo.get("demo") or ""
+    repo["homepage"]=repo.get("homepage") or repo["demo"]
+    repo["type"]=repo.get("type") or ("Web App" if repo["homepage"] else "Open Source")
+    repo["stars"]=repo.get("stars") or 0
+    repo["forks"]=repo.get("forks") or 0
+    repo["language"]=repo.get("language") or ""
+    repo["updated"]=repo.get("updated") or ""
+    repo["created"]=repo.get("created") or ""
+    repo["topics"]=repo.get("topics") or []
+    creator["repos"]=[old for old in creator["repos"] if old.get("url","").rstrip("/").lower()!=repo["url"].rstrip("/").lower()]
+    creator["repos"].insert(0,repo)
+    creator["repos"]=creator["repos"][:30]
+
 projects=[]
 for c in creators:
     for r in c["repos"]:
