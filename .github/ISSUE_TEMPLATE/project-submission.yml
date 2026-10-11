@@ -1,0 +1,67 @@
+name: Submit a project
+description: Suggest a public project by a Nepali creator for review
+title: "Project submission: "
+labels: ["project-submission", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping grow the directory. Please submit a public GitHub repository and accurate project details. Submissions are reviewed before publication.
+  - type: input
+    id: project_name
+    attributes:
+      label: Project name
+      placeholder: Nepali Date Converter
+    validations:
+      required: true
+  - type: input
+    id: creator
+    attributes:
+      label: Creator GitHub username
+      placeholder: username
+    validations:
+      required: true
+  - type: input
+    id: repository
+    attributes:
+      label: Repository URL
+      placeholder: https://github.com/username/repository
+    validations:
+      required: true
+  - type: input
+    id: demo
+    attributes:
+      label: Live demo URL (optional)
+      placeholder: https://example.com
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Website
+        - Web App
+        - Mobile App
+        - Developer Tool
+        - API / Library
+        - Open Source
+        - AI Tool
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Project description
+      description: Explain what it does and who it helps.
+      placeholder: A short, accurate description of the project.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Submission checklist
+      options:
+        - label: The repository is public and the information above is accurate.
+          required: true
+        - label: I created this project or have permission to recommend it.
+          required: true
