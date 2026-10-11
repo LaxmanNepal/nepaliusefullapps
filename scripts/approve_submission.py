@@ -10,17 +10,33 @@ if issue.get("pull_request"):
 body = issue.get("body") or ""
 
 def section(*names):
+    # Accept GitHub issue-form headings (### Label) and the website's
+    # prefilled Markdown body (## headings plus bold-label bullets).
     for name in names:
-        m = re.search(r"^###\s+" + re.escape(name) + r"\s*\n+([\s\S]*?)(?=^###\s+|\Z)", body, re.M | re.I)
-        if m:
-            value = m.group(1).strip()
-            if value.lower() in {"_no response_", "n/a", "none"}:
-                return ""
-            return value
+        heading = re.search(
+            r"^#{2,3}\s+" + re.escape(name) + r"\s*\n+([\s\S]*?)(?=^#{2,3}\s+|\Z)",
+            body, re.M | re.I,
+        )
+        if heading:
+            value = heading.group(1).strip()
+            if value and value.lower() not in {"_no response_", "n/a", "none", "not provided"}:
+                return value
+        bullet = re.search(
+            r"^\s*[-*]\s*\*\*" + re.escape(name) + r"\s*:\*\*\s*(.*?)\s*$",
+            body, re.M | re.I,
+        )
+        if bullet:
+            value = bullet.group(1).strip()
+            if value.lower() not in {"_no response_", "n/a", "none", "not provided"}:
+                return value
     return ""
 
 repo_url = section("Repository URL", "Repository")
 creator = section("Creator GitHub username", "Creator GitHub")
+creator = creator.strip()
+creator_match = re.fullmatch(r"(?:https?://(?:www\.)?github\.com/)?@?([A-Za-z0-9-]+)/?", creator, re.I)
+if creator_match:
+    creator = creator_match.group(1)
 title = section("Project name", "Project name")
 description = section("Project description", "Description")
 demo = section("Live demo URL (optional)", "Live demo")
