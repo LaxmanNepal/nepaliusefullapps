@@ -38,6 +38,18 @@ function profile(login){let c=creators.find(x=>x.login===login);if(!c)return `<m
 function render(){let path=location.hash.slice(1)||'/';let html=path==='/creators'?creatorsPage():path==='/projects'?projectsPage():path.startsWith('/creator/')?profile(decodeURIComponent(path.split('/')[2])):home();document.getElementById('app').innerHTML=html;let ps=document.getElementById('projectSearch');if(ps)ps.oninput=e=>{q=e.target.value.toLowerCase();render()};let cs=document.getElementById('creatorSearch');if(cs)cs.oninput=e=>{let v=e.target.value.toLowerCase();document.getElementById('creatorList').innerHTML=creators.filter(c=>`${c.name} ${c.login}`.toLowerCase().includes(v)).map(creatorCard).join('')};}
 function setCat(x){category=x;render()}function openPreview(url,title){document.getElementById('modalTitle').textContent=title;document.getElementById('modalFrame').src=url;document.getElementById('previewModal').classList.add('show')}function closePreview(){document.getElementById('previewModal').classList.remove('show');document.getElementById('modalFrame').src=''}
 document.getElementById('globalSearch').oninput=e=>{q=e.target.value.toLowerCase();location.hash='/'};window.addEventListener('hashchange',render);render();
-// Enrich the seeded directory with live public GitHub repository metadata when available.
-(async()=>{for(const c of creators){try{let r=await fetch(`https://api.github.com/users/${encodeURIComponent(c.login)}/repos?per_page=30&sort=updated`);if(!r.ok)continue;let data=await r.json();let useful=data.filter(x=>!x.fork).map(x=>({name:x.name,title:x.name.replace(/[-_]/g,' '),description:x.description||'Open-source project by a Nepali creator.',url:x.html_url,demo:x.homepage||'',homepage:x.homepage||'',type:x.homepage?'Web App':'Open Source',stars:x.stargazers_count,updated:x.updated_at}));if(useful.length){c.repos=useful.slice(0,12)} }catch(e){} } localStorage.setItem('nu-creators',JSON.stringify(creators));render()})();
+// Load the prebuilt daily index instead of making every visitor call GitHub's API.
+(async()=>{
+  try {
+    const response=await fetch('data/directory.json',{cache:'no-store'});
+    if(!response.ok) throw new Error('Directory data is not available yet');
+    const data=await response.json();
+    if(Array.isArray(data.creators)&&data.creators.length){
+      creators=data.creators.map(c=>({...c,repos:(c.repos||[]).map(r=>({...r}))}));
+      localStorage.setItem('nu-creators',JSON.stringify(creators));
+      window.directoryMeta={generatedAt:data.generatedAt,discoveryNote:data.discoveryNote,projectCount:data.projectCount};
+      render();
+    }
+  } catch(error) { console.info('Using starter directory until the first scheduled refresh completes.',error); }
+})();
 </script></body></html>
