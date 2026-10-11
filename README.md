@@ -22,3 +22,7 @@ python scripts/build_directory.py
 - Developers can use the **Submit a project** page in the website or the [GitHub project submission issue form](https://github.com/LaxmanNepal/nepaliusefullapps/issues/new?template=project-submission.yml).
 - Maintainers should follow [`docs/MODERATION.md`](docs/MODERATION.md) to verify submissions, request changes, reject spam, and avoid duplicates.
 - Submissions are reviewed manually by a maintainer. When a valid submission issue has both `project-submission` and `approved` labels, the **Record approved project submission** workflow validates that the repository is public and enabled, checks the submitter's creator username against the repository owner, and records its metadata in `data/approved-submissions.json`. The next directory refresh merges approved entries into `data/directory.json` so they persist.
+
+
+## Maintainer dashboard
+The public `#/admin` route in the site provides shortcuts to the open submission queue, approval workflow runs, directory refresh workflow, approved data, and moderation guide. It is informational only and does not bypass GitHub permissions.
