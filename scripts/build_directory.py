@@ -16,14 +16,25 @@ def get(path):
 def search_users(q):
     data=get("/search/users?q="+urllib.parse.quote(q)+"&per_page=100")
     return [x["login"] for x in (data or {}).get("items",[])]
-def search_repos(q):
-    data=get("/search/repositories?q="+urllib.parse.quote(q)+"&sort=updated&order=desc&per_page=100")
+def search_repos(q, sort="stars"):
+    data=get("/search/repositories?q="+urllib.parse.quote(q)+"&sort="+sort+"&order=desc&per_page=100")
     return [x["owner"]["login"] for x in (data or {}).get("items",[]) if x.get("owner",{}).get("type")=="User"]
 logins=set(SEEDS)
-for query in ["location:Nepal","Nepal developer","Nepali","Nepal language"]:
+for query in [
+    "location:Nepal", "Nepal developer", "Nepali", "Nepal language",
+    "Nepal software developer", "Nepali developer", "Nepal programmer"
+]:
     logins.update(search_users(query))
-for query in ["Nepali","Nepal language","Nepal tools","Nepal developer"]:
-    logins.update(search_repos(query))
+# Search by popularity as well as recency to discover established projects.
+for query, sort in [
+    ("Nepali", "stars"), ("Nepali", "updated"),
+    ("Nepal language", "stars"), ("Nepal tools", "stars"),
+    ("Nepal developer", "stars"), ("Nepal web app", "stars"),
+    ("Nepali web app", "stars"), ("Nepal website", "stars"),
+    ("Nepal open source", "stars"), ("Nepali app", "stars"),
+    ("location:Nepal", "stars")
+]:
+    logins.update(search_repos(query, sort))
 creators=[]
 for i,login in enumerate(sorted(logins, key=str.lower)):
     u=get("/users/"+urllib.parse.quote(login))
@@ -46,7 +57,7 @@ for i,login in enumerate(sorted(logins, key=str.lower)):
     creators.append({"login":login,"name":u.get("name") or login,"bio":u.get("bio") or "Public GitHub creator profile.",
                      "location":u.get("location") or "","avatar":u.get("avatar_url") or "",
                      "profile":u.get("html_url") or "https://github.com/"+login,
-                     "repos":mapped[:30]})
+                     "repos":mapped})
     if i%20==0: print("Indexed",i+1,"/",len(logins))
 # Merge maintainer-approved community submissions after discovery so daily refreshes preserve them.
 approved_path=os.path.join("data","approved-submissions.json")
@@ -78,7 +89,7 @@ for entry in approved:
     repo["topics"]=repo.get("topics") or []
     creator["repos"]=[old for old in creator["repos"] if old.get("url","").rstrip("/").lower()!=repo["url"].rstrip("/").lower()]
     creator["repos"].insert(0,repo)
-    creator["repos"]=creator["repos"][:30]
+    creator["repos"]=creator["repos"]
 
 projects=[]
 for c in creators:
@@ -89,8 +100,13 @@ def score(p):
         age=max(1,(datetime.now(timezone.utc)-datetime.fromisoformat(p["updated"].replace("Z","+00:00"))).days)
     except Exception: age=365
     return (p["stars"]*2 + p["forks"]*1.5 + (10 if p["demo"] else 0) + max(0,30-age)*0.25)
-projects.sort(key=score,reverse=True)
+projects.sort(key=lambda p:(p.get("stars",0), score(p)),reverse=True)
+# Rank creator profiles by combined stars and portfolio size.
+for c in creators:
+    c["totalStars"]=sum(r.get("stars",0) for r in c["repos"])
+    c["projectCount"]=len(c["repos"])
+creators.sort(key=lambda c:(c["totalStars"],c["projectCount"],c["login"].lower()),reverse=True)
 os.makedirs("data",exist_ok=True)
-payload={"generatedAt":datetime.now(timezone.utc).isoformat(),"discoveryNote":"Best-effort discovery from public GitHub search. This is not a complete list of Nepali developers; profile locations and search terms are self-reported/incomplete.","creatorCount":len(creators),"projectCount":len(projects),"creators":creators,"projects":projects,"trending":[p["url"] for p in projects[:30]]}
+payload={"generatedAt":datetime.now(timezone.utc).isoformat(),"discoveryNote":"Best-effort discovery from public GitHub search. This is not a complete list of Nepali developers; profile locations and search terms are self-reported/incomplete.","creatorCount":len(creators),"projectCount":len(projects),"creators":creators,"projects":projects,"trending":[p["url"] for p in projects[:100]],"mostStarred":[p["url"] for p in sorted(projects,key=lambda p:p.get("stars",0),reverse=True)[:100]],"topCreators":[c["login"] for c in creators[:100]]}
 with open("data/directory.json","w",encoding="utf-8") as f: json.dump(payload,f,ensure_ascii=False,indent=2)
 print("Wrote",len(creators),"creators and",len(projects),"projects.")
