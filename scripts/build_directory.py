@@ -32,6 +32,11 @@ for query, sort in [
     ("Nepal developer", "stars"), ("Nepal web app", "stars"),
     ("Nepali web app", "stars"), ("Nepal website", "stars"),
     ("Nepal open source", "stars"), ("Nepali app", "stars"),
+    ("Nepal education", "stars"), ("Nepal fintech", "stars"),
+    ("Nepal jobs", "stars"), ("Nepal health", "stars"),
+    ("Nepal utility", "stars"), ("Nepali calendar", "stars"),
+    ("Nepali OCR", "stars"), ("Nepali AI", "stars"),
+    ("Nepal API", "stars"), ("Nepal dashboard", "stars"),
     ("location:Nepal", "stars")
 ]:
     logins.update(search_repos(query, sort))
@@ -39,17 +44,33 @@ creators=[]
 for i,login in enumerate(sorted(logins, key=str.lower)):
     u=get("/users/"+urllib.parse.quote(login))
     if not u: continue
-    # A public GitHub location is self-reported, so keep the directory inclusive but label discovery honestly.
     repos=get("/users/"+urllib.parse.quote(login)+"/repos?per_page=100&sort=updated")
     repos=[r for r in (repos or []) if not r.get("fork") and not r.get("archived") and not r.get("private")]
     mapped=[]
     for r in repos:
+        name=r["name"]
+        description=(r.get("description") or "").strip()
+        lower=(name+" "+description+" "+" ".join(r.get("topics") or [])).lower()
+        # Exclude GitHub profile/config repositories that are not actual projects.
+        if name.lower()==login.lower() and ("config files for my github profile" in lower or "profile readme" in lower or not r.get("homepage") and not r.get("stargazers_count") and not r.get("topics")):
+            continue
+        has_homepage=bool(r.get("homepage"))
+        web_terms=["web-app","webapp","website","web application","dashboard","frontend","front-end","react","nextjs","next.js","vue","svelte","angular","html","css","javascript","streamlit","gradio"]
+        mobile_terms=["android","ios","mobile-app","mobile app","flutter","react-native","react native"]
+        api_terms=["api","endpoint","rest api","graphql","sdk"]
+        if has_homepage or any(k in lower for k in web_terms):
+            ptype="Web App"
+        elif any(k in lower for k in api_terms):
+            ptype="API"
+        elif any(k in lower for k in mobile_terms):
+            ptype="Mobile App"
+        else:
+            ptype="Open Source"
         mapped.append({
-            "name":r["name"], "title":r["name"].replace("-"," ").replace("_"," "),
+            "name":name, "title":name.replace("-"," ").replace("_"," "),
             "description":r.get("description") or "Open-source project by this creator.",
             "url":r["html_url"], "demo":r.get("homepage") or "", "homepage":r.get("homepage") or "",
-            "type":("Web App" if r.get("homepage") else ("API" if any(k in (r["name"]+" "+str(r.get("description"))).lower() for k in ["api","endpoint"]) else "Open Source")),
-            "stars":r.get("stargazers_count",0), "forks":r.get("forks_count",0),
+            "type":ptype, "stars":r.get("stargazers_count",0), "forks":r.get("forks_count",0),
             "language":r.get("language") or "", "updated":r.get("updated_at") or "",
             "created":r.get("created_at") or "", "topics":r.get("topics",[])
         })
@@ -89,7 +110,6 @@ for entry in approved:
     repo["topics"]=repo.get("topics") or []
     creator["repos"]=[old for old in creator["repos"] if old.get("url","").rstrip("/").lower()!=repo["url"].rstrip("/").lower()]
     creator["repos"].insert(0,repo)
-    creator["repos"]=creator["repos"]
 
 projects=[]
 for c in creators:
@@ -101,7 +121,6 @@ def score(p):
     except Exception: age=365
     return (p["stars"]*2 + p["forks"]*1.5 + (10 if p["demo"] else 0) + max(0,30-age)*0.25)
 projects.sort(key=lambda p:(p.get("stars",0), score(p)),reverse=True)
-# Rank creator profiles by combined stars and portfolio size.
 for c in creators:
     c["totalStars"]=sum(r.get("stars",0) for r in c["repos"])
     c["projectCount"]=len(c["repos"])
